@@ -6,8 +6,6 @@ from PIL import Image
 import pandas as pd
 import numpy as np
 import os
-from PIL import Image
-import string
 from functions import func
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -44,7 +42,7 @@ dietary= ['Select','vegetarian','vegan', 'gluten-free','nut-free','healthy', 'da
 
 #Actual DataFrame
 #processed_df = pd.read_csv('/Users/camillemolen/code/mfaruki/replenish_frontend/raw_data/model_df_final.csv')
-processed_df = pd.read_csv('../raw_data/model_df_final.csv')
+processed_df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/model_df_final.csv')
 fail_safe_statement= "No Other Recipe"
 
 
