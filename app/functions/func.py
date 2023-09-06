@@ -7,9 +7,12 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import string
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import os
 
-df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/bbc_final_df.csv')
-#df= pd.read_csv('../../raw_data/bbc_final_df.csv')
+
+path = os.path.join(os.getcwd(), 'raw_data')
+#df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/bbc_final_df.csv')
+df= pd.read_csv(os.path.join(path, 'bbc_final_df.csv'))
 
 
 def model_specific_preprocessing(tokenized_sentence):

@@ -1,7 +1,4 @@
 import streamlit as st
-import datetime
-import requests
-import random
 from PIL import Image
 import pandas as pd
 import numpy as np
@@ -42,7 +39,10 @@ dietary= ['Select','vegetarian','vegan', 'gluten-free','nut-free','healthy', 'da
 
 #Actual DataFrame
 #processed_df = pd.read_csv('/Users/camillemolen/code/mfaruki/replenish_frontend/raw_data/model_df_final.csv')
-processed_df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/model_df_final.csv')
+
+path = os.path.join(os.getcwd(), 'raw_data')
+processed_df = pd.read_csv(os.path.join(path, 'model_df_final.csv'))
+#processed_df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/model_df_final.csv')
 fail_safe_statement= "No Other Recipe"
 
 

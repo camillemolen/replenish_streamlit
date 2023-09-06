@@ -5,11 +5,11 @@ import nltk
 from nltk.stem import WordNetLemmatizer
 import string
 import requests
+import os
 
-
-
-df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/model_df_final.csv') #.reset_index(drop=True)
-
+path = os.path.join(os.getcwd(), 'raw_data')
+#df = pd.read_csv('/Users/camillemolen/code/replenish_streamlit/replenish_streamlit/raw_data/model_df_final.csv') #.reset_index(drop=True)
+df = pd.read_csv(os.path.join(path, 'model_df_final.csv'))
 
 def cleaner(text):
     strip_text = []
