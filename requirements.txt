@@ -202,13 +202,6 @@ stopit==1.1.2
 streamlit==1.11.1
 tangled-up-in-unicode==0.2.0
 tenacity==8.1.0
-tensorboard==2.10.1
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.1
-tensorflow-datasets==4.6.0
-tensorflow-estimator==2.10.0
-tensorflow-macos==2.10.0
-tensorflow-metadata==1.10.0
 termcolor==2.0.1
 terminado==0.16.0
 text-unidecode==1.3
