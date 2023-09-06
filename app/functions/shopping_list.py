@@ -150,9 +150,12 @@ def final_dataframe(recipe_index:list):
     final_df = pd.concat([df1, df2, df3])
 
     final_df2 = final_df.groupby('product').sum()[['quantity']].reset_index().sort_values('quantity', ascending=False)
+
     final_df3 = final_df2.merge(final_df, on='product', how='inner')
     final_df3 = final_df3.drop('quantity_y', axis=1)
     final_df3.drop_duplicates(inplace=True)
+    # final_df3 = final_df3['product'].drop_duplicates()
     final_df3['unit'].fillna(' ', inplace=True)
+    #final_df3 = final_df3.groupby(['product']).sum().reset_index()
 
     return final_df3

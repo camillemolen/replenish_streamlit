@@ -391,7 +391,7 @@ def output():
         with row10_1:
             new_recipe1 = str(final_similar_df.recipe_title[0])
             st.subheader(new_recipe1)
-            st.text(f"Carbon Footprint:{carb}")
+            st.text(f"Difficulty: {final_similar_df.difficulty_level[0]}")
             for item in final_similar_df.ingredients[0].split(','):
                 if item != " ":
                     st.write(f"- {item}")
@@ -400,7 +400,7 @@ def output():
             try:
                 new_recipe2 = str(final_similar_df.recipe_title[1])
                 st.subheader(new_recipe2)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {final_similar_df.difficulty_level[2]}")
                 for item in final_similar_df.ingredients[1].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -411,7 +411,7 @@ def output():
             try:
                 new_recipe3 = str(final_similar_df.recipe_title[2])
                 st.subheader(new_recipe3)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {final_similar_df.difficulty_level[2]}")
                 for item in final_similar_df.ingredients[2].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -419,9 +419,23 @@ def output():
                 st.subheader(fail_safe_statement)
 
 
+        st.write("---------")
+
         ####################
         ## SHOPPING LIST ###
         ####################
+
+        spac1,col4_1,spac2, col4_2,spac3, col4_3,spac4 = st.columns((.05, 1, .05, 2.2, .05, 1, .05))
+
+        with col4_1:
+            pass
+        with col4_2:
+            st.header("Your Shopping List 🛒:")
+        with col4_3:
+            pass
+
+
+
         row11_spacer1,row11_1,row11_spacer2,row11_2, row11_spacer3 = st.columns((.2, 1.6, .2, 1.6, .2))
 
         shopping_index_list = []
@@ -430,31 +444,67 @@ def output():
             shopping_index_list.append(ind1)
 
         except:
-            None
+            pass
         try:
             ind2 = processed_df[processed_df.recipe_title == final_similar_df.recipe_title[1]].index.tolist()[0]
             shopping_index_list.append(ind2)
         except:
-            None
+            pass
         try:
             ind3 = processed_df[processed_df.recipe_title == final_similar_df.recipe_title[2]].index.tolist()[0]
             shopping_index_list.append(ind3)
         except:
-            None
-
+            pass
 
 
         # fridge = shopping_list.final_dataframe(shopping_index_list)
         fridge = pd.DataFrame(shopping_list.final_dataframe(shopping_index_list))
+        fridge = fridge[~((fridge['quantity_x']>50) & (fridge['unit']==' '))]
+        #df.drop((df.acol <= df.bcol) | (df.acol <= 10), axis=0)
         fridge = fridge[fridge['quantity_x']!=0]
+
+
+        #st.write(fridge)
+
+
         with row11_1:
-            st.subheader("Your Shopping List:")
+            #st.subheader("Your Shopping List:")
             for idx, row in fridge.iterrows():
+                # if idx<(len(fridge.index)/2) or idx==(len(fridge.index)/2) :
+                if idx<((fridge.shape[0])/2 +1) or idx==((fridge.shape[0])/2+1) :
                 # st.write(row)
-                st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
+                    st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
 
         with row11_2:
-            st.subheader(f"Your Shopping List's Carbon Foodprint is: {carb}")
+            # st.subheader("")
+            # st.subheader("")
+            for idx, row in fridge.iterrows():
+                if idx > ((fridge.shape[0])/2 +1):
+                # st.write(row)
+                    st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
+
+
+        model_df=processed_df.copy().reset_index(drop=True)
+        word_cloud_index = model_df[model_df.recipe_title == final_similar_df.recipe_title[0]].index.tolist()[0]
+        clus = model_df['cluster'][word_cloud_index]
+        model_df['final_ingredients'] = model_df['final_ingredients'].apply(func.ing_list2)
+
+        list_of_ing = model_df.groupby('cluster')['final_ingredients'].sum()[clus]
+        string_of_ing = ', '.join(list_of_ing)
+
+            # path = os.path.join(os.getcwd(), 'raw_data')
+            # font_path_ = os.path.join(path, 'Helvetica.ttc')
+
+        wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
+            # Display the generated image:
+        fig= plt.figure(figsize=(20, 10))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        #plt.tight_layout(pad=0)
+        plt.gcf().set_facecolor("white")
+        plt.axis("off")
+        plt.show()
+        st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.pyplot(fig)
 
         st.write("---------")
 
@@ -518,7 +568,7 @@ def output():
         with row10_1:
             diff_recipe1 = str(final_diff_df.recipe_title[0])
             st.subheader(diff_recipe1)
-            st.text(f"Carbon Footprint:{carb}")
+            st.text(f"Difficulty: {final_diff_df.difficulty_level[0]}")
             for item in final_diff_df.ingredients[0].split(','):
                 if item != " ":
                     st.write(f"- {item}")
@@ -527,7 +577,7 @@ def output():
             try:
                 diff_recipe2 = str(final_diff_df.recipe_title[1])
                 st.subheader(diff_recipe2)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {final_diff_df.difficulty_level[1]}")
                 for item in final_diff_df.ingredients[1].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -539,7 +589,7 @@ def output():
 
                 diff_recipe3 = str(final_diff_df.recipe_title[2])
                 st.subheader(diff_recipe3)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {final_diff_df.difficulty_level[2]}")
                 for item in final_diff_df.ingredients[2].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -552,6 +602,16 @@ def output():
     ## SHOPPING LIST ###
     ####################
 
+        spac1,col4_1,spac2, col4_2,spac3, col4_3,spac4 = st.columns((.05, 1, .05, 2.2, .05, 1, .05))
+
+        with col4_1:
+            pass
+        with col4_2:
+            st.header("Your Shopping List 🛒:")
+
+        with col4_3:
+            pass
+
         row11_spacer1,row11_1,row11_spacer2,row11_2, row11_spacer3 = st.columns((.2, 1.6, .2, 1.6, .2))
 
         shopping_index_list = []
@@ -560,58 +620,64 @@ def output():
             shopping_index_list.append(ind1)
 
         except:
-            None
+            pass
         try:
             ind2 = processed_df[processed_df.recipe_title == final_diff_df.recipe_title[1]].index.tolist()[0]
             shopping_index_list.append(ind2)
         except:
-            None
+            pass
         try:
             ind3 = processed_df[processed_df.recipe_title == final_diff_df.recipe_title[2]].index.tolist()[0]
             shopping_index_list.append(ind3)
         except:
-            None
-
+            pass
 
 
         # fridge = shopping_list.final_dataframe(shopping_index_list)
         fridge = pd.DataFrame(shopping_list.final_dataframe(shopping_index_list))
         fridge = fridge[fridge['quantity_x']!=0]
 
-        # st.write(fridge)
+        #st.write(fridge)
+
 
         with row11_1:
-            st.subheader("Your Shopping List:")
+            #st.subheader("Your Shopping List:")
             for idx, row in fridge.iterrows():
+                # if idx<(len(fridge.index)/2) or idx==(len(fridge.index)/2) :
+                if idx<((fridge.shape[0])/2 +1) or idx==((fridge.shape[0])/2+1) :
                 # st.write(row)
-                st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
+                    st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
 
         with row11_2:
+            # st.subheader("")
+            # st.subheader("")
+            for idx, row in fridge.iterrows():
+                if idx > ((fridge.shape[0])/2 +1):
+                # st.write(row)
+                    st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
 
 
-            model_df=processed_df.copy().reset_index(drop=True)
-            word_cloud_index = model_df[model_df.recipe_title == final_diff_df.recipe_title[1]].index.tolist()[0]
-            clus = model_df['cluster'][word_cloud_index]
-            st.write(model_df)
-            model_df['final_ingredients'] = model_df['final_ingredients'].apply(func.ing_list2)
+        model_df=processed_df.copy().reset_index(drop=True)
+        word_cloud_index = model_df[model_df.recipe_title == final_diff_df.recipe_title[0]].index.tolist()[0]
+        clus = model_df['cluster'][word_cloud_index]
+        model_df['final_ingredients'] = model_df['final_ingredients'].apply(func.ing_list2)
 
-            list_of_ing = model_df.groupby('cluster')['final_ingredients'].sum()[clus]
-
-            st.write(list_of_ing)
-
-            string_of_ing = ', '.join(list_of_ing)
+        list_of_ing = model_df.groupby('cluster')['final_ingredients'].sum()[clus]
+        string_of_ing = ', '.join(list_of_ing)
 
             # path = os.path.join(os.getcwd(), 'raw_data')
             # font_path_ = os.path.join(path, 'Helvetica.ttc')
 
-            wordcloud = WordCloud().generate(string_of_ing)
+        wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
             # Display the generated image:
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.gcf().set_facecolor("white")
-            plt.axis("off")
-            plt.show()
-
-            st.pyplot()
+        fig= plt.figure(figsize=(20, 10))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        #plt.tight_layout(pad=0)
+        plt.gcf().set_facecolor("white")
+        plt.axis("off")
+        plt.show()
+        st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.pyplot(fig)
 
         st.write("---------")
 
@@ -622,7 +688,7 @@ def graphing():
     determined by Replenish's model, where the cluster to be seen is inputted/chosen by
     the viewer."""
     st.title("Graphing Replenish's Cluster Distributions!")
-    select = st.selectbox("Select a cluster group you would like to observe", range(1, max(processed_df.cluster)+2))
+    select = st.selectbox("Select a cluster group you would like to observe", range(1, max(processed_df.cluster)+1))
 
     if st.button("Submit"):
         st.text("Below is the distribution of preference categories")
