@@ -8,7 +8,9 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import seaborn as sns
-from functions import shopping_list
+from functions import shopping_list, func
+from wordcloud import WordCloud
+
 
 #Setting Website Configuration
 st.set_page_config(
@@ -575,7 +577,9 @@ def output():
         # fridge = shopping_list.final_dataframe(shopping_index_list)
         fridge = pd.DataFrame(shopping_list.final_dataframe(shopping_index_list))
         fridge = fridge[fridge['quantity_x']!=0]
-        st.write(fridge)
+
+        # st.write(fridge)
+
         with row11_1:
             st.subheader("Your Shopping List:")
             for idx, row in fridge.iterrows():
@@ -583,7 +587,31 @@ def output():
                 st.write(f"- {row['product']} : {row['quantity_x']} {row['unit']}")
 
         with row11_2:
-            st.subheader(f"Your Shopping List's Carbon Foodprint is: {carb}")
+
+
+            model_df=processed_df.copy().reset_index(drop=True)
+            word_cloud_index = model_df[model_df.recipe_title == final_diff_df.recipe_title[1]].index.tolist()[0]
+            clus = model_df['cluster'][word_cloud_index]
+            st.write(model_df)
+            model_df['final_ingredients'] = model_df['final_ingredients'].apply(func.ing_list2)
+
+            list_of_ing = model_df.groupby('cluster')['final_ingredients'].sum()[clus]
+
+            st.write(list_of_ing)
+
+            string_of_ing = ', '.join(list_of_ing)
+
+            # path = os.path.join(os.getcwd(), 'raw_data')
+            # font_path_ = os.path.join(path, 'Helvetica.ttc')
+
+            wordcloud = WordCloud().generate(string_of_ing)
+            # Display the generated image:
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.gcf().set_facecolor("white")
+            plt.axis("off")
+            plt.show()
+
+            st.pyplot()
 
         st.write("---------")
 

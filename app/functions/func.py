@@ -8,6 +8,10 @@ import string
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import streamlit as st
+
 
 
 path = os.path.join(os.getcwd(), 'raw_data')
@@ -85,3 +89,30 @@ def k_means(bbc_final_df, clusters=75, min_df=0.00001, max_df=0.3):
     df['cluster'] = kmeans.fit_predict(counted_words)
 
     return df
+
+
+### WORD CLOUD CODE ###
+
+model_df = pd.read_csv(os.path.join(path, 'model_df_final.csv'))
+
+def ing_list2(sample_txt):
+    elements = []
+    for punc in string.punctuation:
+        sample_txt = sample_txt.replace(punc,'')
+    for word in sample_txt.split():
+        elements.append(str(word))
+    return elements
+
+# def word_cloud(index):
+#     model_df['final_ingredients'] = model_df['final_ingredients'].apply(ing_list2)
+
+#     list_of_ing = model_df.groupby('cluster')['final_ingredients'].sum()[index]
+#     string_of_ing = ', '.join(list_of_ing)
+
+#     wordcloud = WordCloud(background_color='rgba(255,255,255,0)').generate(string_of_ing)
+#     # Display the generated image:
+#     plt.imshow(wordcloud, interpolation='bilinear')
+#     plt.gcf().set_facecolor("white")
+#     plt.axis("off")
+#     plt.show()
+#     st.pyplot()

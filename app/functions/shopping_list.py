@@ -42,6 +42,7 @@ def ing_list(sample_txt):
 
     return new_lst
 
+
 def remove_sw_sep(lst):
     sw_for_september = ['chopped','roughly','roughly chopped','crushed', 'and',
                     'dried','serve','split','zest and juice','deseeded and',

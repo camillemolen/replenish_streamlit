@@ -1,5 +1,6 @@
 streamlit==1.11.1
-Pillow==9.1.1
+Pillow==9.5.0
+wordcloud==1.9.2
 pandas==1.4.4
 pandas-gbq==0.17.9
 pandas-profiling==3.6.6
