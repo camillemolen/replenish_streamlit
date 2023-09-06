@@ -75,24 +75,15 @@ def intro():
     ####################
 
     row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns((.1, 2.2, .05, 1.3, .1))
+    path = os.path.join(os.getcwd(), 'raw_data')
     with row0_1:
         st.title('Replenish - A Recipe Optimizer')
         st.caption('Streamlit App by [Maaviya Faruki, Camille Molen, Jayesh Mistry, Jonas Korganas](https://www.linkedin.com/in/camille-molen/)')
     with row0_2:
         st.text("")
-        # path = os.path.join(os.path.dirname(os.getcwd()),'raw_data')
-        imagelogo = Image.open('/Users/camillemolen/code/mfaruki/replenish_frontend/raw_data/logo.jpg')
+        imagelogo = Image.open(os.path.join((path), 'logo.jpg'))
         st.image(imagelogo, use_column_width=True)
 
-        #blue back = #F0F2F6
-        # blue text = #1A2256  - white secondary back and black prim
-
-        # [theme]
-        # primaryColor="#121111"
-        # backgroundColor="#EEF3EF"
-        # secondaryBackgroundColor="#DEE0DA"
-        # textColor="#274724"
-        # font="serif"
 
 
     st.text("")
@@ -148,7 +139,7 @@ def intro():
 
     row5_spacer1,row5_1,row5_spacer2,row_5_2,row5_spacer3,row5_3,row5_spacer4,row5_4,row5_spacer5 = st.columns((.1, 1.6, .1, 1.6, .1, 1.6, .1, 1.6, .1))
 
-    path = os.path.join(os.path.dirname(os.getcwd()),'raw_data')
+    path = os.path.join(os.getcwd(), 'raw_data')
 
     with row5_1:
         image = Image.open(os.path.join((path),'maaviya.jpg'))
