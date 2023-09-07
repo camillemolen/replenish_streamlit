@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import seaborn as sns
 from functions import shopping_list, func
-from wordcloud import WordCloud
+from wordcloud import WordCloud, ImageColorGenerator
 
 
 #Setting Website Configuration
@@ -32,8 +32,7 @@ cuisines = ['Select','american','australian', 'asian','brazilian','british','caj
             'thai', 'turkish', 'vietnamese']
 #cuisines = [cuisine.title() for cuisine in cuisines]
 
-dietary= ['Select','vegetarian','vegan', 'gluten-free','nut-free','healthy', 'dairy-free', 'egg-free', 'low-calorie', 'low-sugar',
-           'high-protein', 'low-fat', 'high-fibre', 'keto', 'low-carb']
+dietary= ['Select','vegetarian','vegan', 'gluten-free','nut-free','healthy', 'dairy-free', 'egg-free', 'low-calorie', 'low-sugar', 'low-fat', 'high-fibre', 'keto', 'low-carb']
 #dietary = [diet.title() for diet in dietary]
 
 
@@ -116,7 +115,7 @@ def intro():
         st.markdown(str_games)
     with row4_2:
         num_clusters_in_df = max(np.unique(processed_df.cluster))
-        str_clusters = str(num_clusters_in_df) + " Ingredient Clusters"
+        str_clusters = str(num_clusters_in_df + 1) + " Ingredient Clusters"
         st.markdown(str_clusters)
     with row4_3:
         total_preferences_in_df = len(np.unique(processed_df.preference)) + len(dietary)
@@ -367,8 +366,8 @@ def output():
         if cuisine_pref != 'Select' and diet_pref != 'Select':
             try:
                 similar_df= diet_star_sorted_df
-                similar_df = (initial_df[initial_df.preference ==cuisine_pref]).reset_index(drop=True)
-                tester = initial_df.preference[0]
+                similar_df = (similar_df[similar_df.preference ==cuisine_pref]).reset_index(drop=True)
+                tester = similar_df.preference[0]
             except:
                 similar_df = cuis_star_sorted_df
                 st.markdown(f"""<span style='color:red'>No {diet_pref} recipes found for this cuisine</span>""", unsafe_allow_html=True)
@@ -391,6 +390,8 @@ def output():
 
         final_similar_df=(similar_df[similar_df.cluster== similar_df.cluster[recipe_pick-1]]).reset_index(drop=True)
         index1 = final_similar_df[final_similar_df['recipe_title'] == similar_df.recipe_title[recipe_pick-1]].index.tolist()[0]
+
+        #st.write(final_similar_df)
 
         #############################################################
         ################# COSINE SIMILARITY SORTING #################
@@ -419,7 +420,7 @@ def output():
             try:
                 new_recipe2 = str(final_similar_df.recipe_title[1])
                 st.subheader(new_recipe2)
-                st.text(f"Difficulty: {final_similar_df.difficulty_level[2]}")
+                st.text(f"Difficulty: {final_similar_df.difficulty_level[1]}")
                 for item in final_similar_df.ingredients[1].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -513,10 +514,20 @@ def output():
 
             # path = os.path.join(os.getcwd(), 'raw_data')
             # font_path_ = os.path.join(path, 'Helvetica.ttc')
+        path = os.path.join(os.getcwd(), 'raw_data')
+        font_path_temp = os.path.join(path,'MagniveraTrial-HeavyItalic.otf')
 
-        wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
+
+        # wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
             # Display the generated image:
-        fig= plt.figure(figsize=(20, 10))
+        # fig= plt.figure(figsize=(20, 10))
+
+        custom_mask = np.array(Image.open(os.path.join(path,'shopping_nobg.png')))
+        # custom_color =  np.array(Image.open(os.path.join(path,'rainbow.png')))
+        wordcloud = WordCloud(background_color='#EEF3EF', colormap='summer', font_path= font_path_temp).generate(string_of_ing)
+        # image_colors = ImageColorGenerator(custom_color)
+        # wordcloud.recolor(color_func=image_colors)
+        fig= plt.figure(figsize=(8, 6))
         plt.imshow(wordcloud, interpolation='bilinear')
         #plt.tight_layout(pad=0)
         plt.gcf().set_facecolor("white")
@@ -688,9 +699,20 @@ def output():
             # path = os.path.join(os.getcwd(), 'raw_data')
             # font_path_ = os.path.join(path, 'Helvetica.ttc')
 
-        wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
+        path = os.path.join(os.getcwd(), 'raw_data')
+        font_path_temp = os.path.join(path,'MagniveraTrial-HeavyItalic.otf')
+
+
+        # wordcloud = WordCloud(background_color='white', width=350, height=250).generate(string_of_ing)
             # Display the generated image:
-        fig= plt.figure(figsize=(20, 10))
+        # fig= plt.figure(figsize=(20, 10))
+
+        custom_mask = np.array(Image.open(os.path.join(path,'shopping_nobg.png')))
+        # custom_color =  np.array(Image.open(os.path.join(path,'rainbow.png')))
+        wordcloud = WordCloud(background_color='#EEF3EF', colormap='summer', font_path= font_path_temp).generate(string_of_ing)
+        # image_colors = ImageColorGenerator(custom_color)
+        # wordcloud.recolor(color_func=image_colors)
+        fig= plt.figure(figsize=(8, 6))
         plt.imshow(wordcloud, interpolation='bilinear')
         #plt.tight_layout(pad=0)
         plt.gcf().set_facecolor("white")
