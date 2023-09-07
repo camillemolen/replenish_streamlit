@@ -748,7 +748,7 @@ def graphing():
         st.write(fig_df)
 
         fig= plt.figure(figsize=(20, 10), facecolor=(0,0,0,0))
-        sns.barplot(x = fig_df['index'], y = fig_df['preference'])
+        sns.barplot(x = fig_df['preference'], y = fig_df['count'])
         plt.xlabel('Preference', fontsize=25, fontname="Times New Roman",fontweight="bold")
         plt.ylabel('Number of Recipes', fontsize=25, fontname="Times New Roman",fontweight="bold")
         plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontname="Times New Roman",fontweight="bold")
