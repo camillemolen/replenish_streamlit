@@ -83,7 +83,7 @@ def intro():
         st.caption('Streamlit App by [Maaviya Faruki, Camille Molen, Jayesh Mistry, Jonas Korganas](https://www.linkedin.com/in/camille-molen/)')
     with row0_2:
         st.text("")
-        imagelogo = Image.open(os.path.join((path), 'logo.jpg'))
+        imagelogo = Image.open(os.path.join((path), 'logo2.jpg'))
         st.image(imagelogo, use_column_width=True)
 
 
@@ -151,7 +151,7 @@ def intro():
             f"<h3 style='text-align: center;'><i>{maaviya}</i></h1>",
             unsafe_allow_html=True)
         st.image(image, use_column_width=True)
-        st.caption("maaviya emial")
+        st.caption("The Idea Master")
 
     with row_5_2:
         image1 = Image.open(os.path.join((path),'jay.jpeg'))
@@ -161,7 +161,7 @@ def intro():
             f"<h3 style='text-align: center;'><i>{jay}</i></h1>",
             unsafe_allow_html=True)
         st.image(image1, use_column_width=True)
-        st.caption("jayemail")
+        st.caption("The Modeller")
 
     with row5_3:
         image2 = Image.open(os.path.join((path),'jonas_work.png'))
@@ -171,7 +171,7 @@ def intro():
             f"<h3 style='text-align: center;'><i>{jonas}</i></h1>",
             unsafe_allow_html=True)
         st.image(image2, use_column_width=True)
-        st.caption("jonasemail")
+        st.caption("The Preprocessor")
 
     with row5_4:
         image3 = Image.open(os.path.join((path),'camille.jpg'))
@@ -181,7 +181,7 @@ def intro():
             f"<h3 style='text-align: center;'><i>{camille}</i></h1>",
             unsafe_allow_html=True)
         st.image(image3, use_column_width=True)
-        st.caption("calinked in")
+        st.caption("The Frontend ")
 
     st.write("--------------")
 
