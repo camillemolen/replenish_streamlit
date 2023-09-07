@@ -755,19 +755,19 @@ def graphing():
 
 
 # Set axes background to transparent
-       fig = plt.figure(figsize=(20, 10))
-       ax = plt.gca()
-       ax.set_facecolor((0, 0, 0, 0))
-       sns.barplot(x=fig_df['preference'], y=fig_df['count'])
+        fig = plt.figure(figsize=(20, 10))
+        ax = plt.gca()
+        ax.set_facecolor((0, 0, 0, 0))
+        sns.barplot(x=fig_df['preference'], y=fig_df['count'])
 
-       plt.xlabel('Preference', fontsize=25, fontweight="bold")
-       plt.ylabel('Number of Recipes', fontsize=25, fontweight="bold")
-       plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold")
-       plt.xticks(rotation=45, fontsize=15)
-       plt.yticks(fontsize=15)
+        plt.xlabel('Preference', fontsize=25, fontweight="bold")
+        plt.ylabel('Number of Recipes', fontsize=25, fontweight="bold")
+        plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold")
+        plt.xticks(rotation=45, fontsize=15)
+        plt.yticks(fontsize=15)
 
-       fig.patch.set_facecolor((0, 0, 0, 0))
-       st.pyplot(fig)
+        fig.patch.set_facecolor((0, 0, 0, 0))
+        st.pyplot(fig)
 
 
 
