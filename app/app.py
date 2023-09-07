@@ -744,10 +744,10 @@ def graphing():
 
         cluster_df = processed_df[processed_df['cluster'] == select]
         cuisine_counts = cluster_df['preference'].value_counts()
-        fig_df = pd.DataFrame(cuisine_counts).reset_index()
+        fig_df = pd.DataFrame(cuisine_counts).reset_index(drop=True)
 
         fig= plt.figure(figsize=(20, 10), facecolor=(0,0,0,0))
-        sns.barplot(data=fig_df, x = 'index', y = 'preference')
+        sns.barplot(x = fig_df['index'], y = fig_df['preference'])
         plt.xlabel('Preference', fontsize=25, fontname="Times New Roman",fontweight="bold")
         plt.ylabel('Number of Recipes', fontsize=25, fontname="Times New Roman",fontweight="bold")
         plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontname="Times New Roman",fontweight="bold")
