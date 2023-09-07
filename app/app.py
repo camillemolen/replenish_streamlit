@@ -9,7 +9,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from functions import shopping_list, func
 from wordcloud import WordCloud, ImageColorGenerator
-
+import nltk
+# nltk.download('wordnet')
+# nltk.download('punkt')
 
 #Setting Website Configuration
 st.set_page_config(
