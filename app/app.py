@@ -216,7 +216,7 @@ def output():
 
     row6_spacer1, row6_1, row6_spacer2 = st.columns((.2, 7.1, .2))
     with row6_1:
-        st.subheader('Recipe Finder 🍽🔍')
+        st.subheader('Recipe Finder 🔍')
         st.markdown('Find recipes with similar ingredients according to the preference(s)...')
 
     ####################
@@ -225,7 +225,7 @@ def output():
 
     row7_spacer1, row7_1, row7_spacer2, row7_2, row7_spacer3 = st.columns((.2, 2.3, .2, 2.3, .2))
     with row7_1:
-        cuisine_pref = st.selectbox ("Cuisines🥘", cuisines,key = 'cuis')
+        cuisine_pref = st.selectbox ("Cuisines 🥘", cuisines,key = 'cuis')
         if cuisine_pref != 'Select':
             cuis_df= (processed_df[processed_df.preference ==cuisine_pref])
             cuis_star_sorted_df=cuis_df[cuis_df['stars']!='n'].reset_index(drop=True).sort_values(by='stars', ascending=False)
@@ -236,7 +236,7 @@ def output():
 
 
     with row7_2:
-        diet_pref = st.selectbox ("Dietary🍜", dietary,key = 'diet')
+        diet_pref = st.selectbox ("Dietary 🍜", dietary,key = 'diet')
         if diet_pref != 'Select':
             diet_df= (processed_df[processed_df.combined.str.contains(diet_pref)])
             diet_star_sorted_df=diet_df[diet_df['stars']!='n'].reset_index(drop=True).sort_values(by='stars', ascending=False)
@@ -356,7 +356,7 @@ def output():
     with col2_5:
         pass
     with col2_3 :
-        recipe_pick = st.selectbox('Pick a Recipe 1️⃣ 2️⃣ 3️⃣', [1,2,3])
+        recipe_pick = st.selectbox('Pick a Recipe \n 1️⃣, 2️⃣ or 3️⃣ ?', [1,2,3])
 
 
     st.write("--------------")
