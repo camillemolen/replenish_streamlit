@@ -120,15 +120,15 @@ def intro():
     row4_spacer1, row4_1, row4_spacer2, row4_2, row4_spacer3, row4_3, row4_spacer4   = st.columns((.2, 1.6, .2, 1.6, .2, 1.6, .2))
     with row4_1:
         unique_recipes_in_df = len(processed_df.recipe_title)
-        str_games = str(unique_recipes_in_df) + " Recipes"
+        str_games = str(unique_recipes_in_df) + " Recipes🥕"
         st.markdown(str_games)
     with row4_2:
         num_clusters_in_df = max(np.unique(processed_df.cluster))
-        str_clusters = str(num_clusters_in_df + 1) + " Ingredient Clusters"
+        str_clusters = str(num_clusters_in_df + 1) + " Ingredient Clusters🍡"
         st.markdown(str_clusters)
     with row4_3:
         total_preferences_in_df = len(np.unique(processed_df.preference)) + len(dietary)
-        str_preferences =str(total_preferences_in_df) + " Preferences"
+        str_preferences =str(total_preferences_in_df) + " Preferences🍣"
         st.markdown(str_preferences)
 
     #Click to see data button
@@ -216,7 +216,7 @@ def output():
 
     row6_spacer1, row6_1, row6_spacer2 = st.columns((.2, 7.1, .2))
     with row6_1:
-        st.subheader('Recipe Finder')
+        st.subheader('Recipe Finder 🍽🔍')
         st.markdown('Find recipes with similar ingredients according to the preference(s)...')
 
     ####################
@@ -225,7 +225,7 @@ def output():
 
     row7_spacer1, row7_1, row7_spacer2, row7_2, row7_spacer3 = st.columns((.2, 2.3, .2, 2.3, .2))
     with row7_1:
-        cuisine_pref = st.selectbox ("Cuisines", cuisines,key = 'cuis')
+        cuisine_pref = st.selectbox ("Cuisines🥘", cuisines,key = 'cuis')
         if cuisine_pref != 'Select':
             cuis_df= (processed_df[processed_df.preference ==cuisine_pref])
             cuis_star_sorted_df=cuis_df[cuis_df['stars']!='n'].reset_index(drop=True).sort_values(by='stars', ascending=False)
@@ -236,7 +236,7 @@ def output():
 
 
     with row7_2:
-        diet_pref = st.selectbox ("Dietary", dietary,key = 'diet')
+        diet_pref = st.selectbox ("Dietary🍜", dietary,key = 'diet')
         if diet_pref != 'Select':
             diet_df= (processed_df[processed_df.combined.str.contains(diet_pref)])
             diet_star_sorted_df=diet_df[diet_df['stars']!='n'].reset_index(drop=True).sort_values(by='stars', ascending=False)
@@ -260,7 +260,7 @@ def output():
     with col5:
         pass
     with col3 :
-        center_button = st.button('Generate Top Picks')
+        center_button = st.button('Generate Top Picks🍋')
 
     ####################
     ###  1ST RECIPES ###
@@ -356,7 +356,7 @@ def output():
     with col2_5:
         pass
     with col2_3 :
-        recipe_pick = st.selectbox('Pick a Recipe', [1,2,3])
+        recipe_pick = st.selectbox('Pick a Recipe 1️⃣ 2️⃣ 3️⃣', [1,2,3])
 
 
     st.write("--------------")
@@ -739,7 +739,7 @@ def graphing():
     determined by Replenish's model, where the cluster to be seen is inputted/chosen by
     the viewer."""
     st.title("Graphing Replenish's Cluster Distributions!")
-    select = st.selectbox("Select a cluster group you would like to observe", range(1, max(processed_df.cluster)+1))
+    select = st.selectbox(" 🍎 Select a cluster group you would like to observe 🍎 ", range(1, max(processed_df.cluster)+1))
 
     if st.button("Submit"):
         st.text("Below is the distribution of preference categories")
