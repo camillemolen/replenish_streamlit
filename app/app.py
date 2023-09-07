@@ -7,9 +7,10 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import matplotlib.style as style
+import matplotlib.font_manager as fm
 
 # Set Matplotlib style
-style.use('default') 
+style.use('default')
 
 import seaborn as sns
 from functions import shopping_list, func
@@ -755,19 +756,23 @@ def graphing():
 
 
 # Set axes background to transparent
+
+        path = os.path.join(os.getcwd(), 'raw_data')
+        font_path_sns = os.path.join(path,'times.ttf')
+        font_properties = fm.FontProperties(fname = font_path_sns)
         fig = plt.figure(figsize=(20, 10))
         ax = plt.gca()
         ax.set_facecolor((0, 0, 0, 0))
         sns.barplot(x=fig_df['preference'], y=fig_df['count'])
 
-        plt.xlabel('Preference', fontsize=25, fontweight="bold")
-        plt.ylabel('Number of Recipes', fontsize=25, fontweight="bold")
-        plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold")
+        plt.xlabel('Preference', fontsize=25, fontweight="bold", fontproperties = font_properties)
+        plt.ylabel('Number of Recipes', fontsize=25, fontweight="bold", fontproperties = font_properties)
+        plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold", fontproperties = font_properties)
         plt.xticks(rotation=45, fontsize=15)
         plt.yticks(fontsize=15)
 
         fig.patch.set_facecolor((0, 0, 0, 0))
-        st.pyplot(fig)
+        # st.pyplot(fig)
 
 
 
