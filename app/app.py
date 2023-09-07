@@ -759,7 +759,9 @@ def graphing():
 
         path = os.path.join(os.getcwd(), 'raw_data')
         font_path_sns = os.path.join(path,'times.ttf')
+        font_path_sns_bold = os.path.join(path,'times-new-roman-grassetto.ttf')
         font_properties = fm.FontProperties(fname = font_path_sns)
+        font_properties_bold = fm.FontProperties(fname = font_path_sns_bold)
         fig = plt.figure(figsize=(20, 10))
         ax = plt.gca()
         ax.set_facecolor((0, 0, 0, 0))
@@ -767,7 +769,7 @@ def graphing():
 
         plt.xlabel('Preference', fontsize=25, fontweight="bold", fontproperties = font_properties)
         plt.ylabel('Number of Recipes', fontsize=25, fontweight="bold", fontproperties = font_properties)
-        plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold", fontproperties = font_properties)
+        plt.title(f'Cluster {select} - Preference vs. Number of Recipes', fontsize=40, fontweight="bold", fontproperties = font_properties_bold)
         plt.xticks(rotation=45, fontsize=15)
         plt.yticks(fontsize=15)
 
