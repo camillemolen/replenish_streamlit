@@ -356,7 +356,7 @@ def output():
     with col2_5:
         pass
     with col2_3 :
-        recipe_pick = st.selectbox('➰ Pick a Recipe ➰ 1️⃣, 2️⃣ or 3️⃣ ?', [1,2,3])
+        recipe_pick = st.selectbox('➰ Pick a Recipe ➰    1️⃣, 2️⃣ or 3️⃣ ?', [1,2,3])
 
 
     st.write("--------------")
