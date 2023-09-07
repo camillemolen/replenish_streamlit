@@ -6,6 +6,11 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
+import matplotlib.style as style
+
+# Set Matplotlib style
+style.use('default') 
+
 import seaborn as sns
 from functions import shopping_list, func
 from wordcloud import WordCloud, ImageColorGenerator
@@ -745,7 +750,9 @@ def graphing():
         cluster_df = processed_df[processed_df['cluster'] == select]
         cuisine_counts = cluster_df['preference'].value_counts()
         fig_df = pd.DataFrame(cuisine_counts).reset_index()
-        st.write(fig_df)
+        # st.write(fig_df)
+
+        
 
         fig= plt.figure(figsize=(20, 10), facecolor=(0,0,0,0))
         sns.barplot(x = fig_df['preference'], y = fig_df['count'])
