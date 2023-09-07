@@ -769,7 +769,7 @@ def graphing():
         # plt.xticks(rotation=45, fontsize=15, fontname="Times New Roman")
         # plt.yticks(fontsize=15, fontname="Times New Roman")
 
-        st.pyplot(fig)
+        st.pyplot(fig, clear_figure=True)
 
 page_names_to_funcs = {
     "About Us": intro,
