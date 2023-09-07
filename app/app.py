@@ -3,7 +3,6 @@ from PIL import Image
 import pandas as pd
 import numpy as np
 import os
-from functions import func
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
@@ -18,6 +17,9 @@ st.set_page_config(
             page_icon="🐍",
             layout="centered", # wide
             initial_sidebar_state="auto") # collapsed
+
+with open(os.path.join(os.getcwd(), 'app','style.css')) as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 #Labels
 
@@ -79,11 +81,11 @@ def intro():
     row0_spacer1, row0_1, row0_spacer2, row0_2, row0_spacer3 = st.columns((.1, 2.2, .05, 1.3, .1))
     path = os.path.join(os.getcwd(), 'raw_data')
     with row0_1:
-        st.title('Replenish - A Recipe Optimizer')
-        st.caption('Streamlit App by [Maaviya Faruki, Camille Molen, Jayesh Mistry, Jonas Korganas](https://www.linkedin.com/in/camille-molen/)')
+        st.title('Maximise Taste, Minimise Waste!')
+        st.caption('Streamlit App by [Maaviya Faruki, Camille Molen, Jayesh Mistry, Jonas Korganas](https://github.com/mfaruki/replenish)')
     with row0_2:
         st.text("")
-        imagelogo = Image.open(os.path.join((path), 'logo2.jpg'))
+        imagelogo = Image.open(os.path.join((path), 'new_logo.png'))
         st.image(imagelogo, use_column_width=True)
 
 
@@ -105,7 +107,7 @@ def intro():
 
     row3_spacer1, row3_1, row3_spacer2 = st.columns((.2, 7.1, .2))
     with row3_1:
-        st.subheader("Currently selected recipes:")
+        st.header("Currently selected recipes:")
 
     row4_spacer1, row4_1, row4_spacer2, row4_2, row4_spacer3, row4_3, row4_spacer4   = st.columns((.2, 1.6, .2, 1.6, .2, 1.6, .2))
     with row4_1:
@@ -151,7 +153,7 @@ def intro():
             f"<h3 style='text-align: center;'><i>{maaviya}</i></h1>",
             unsafe_allow_html=True)
         st.image(image, use_column_width=True)
-        st.caption("The Idea Master")
+        st.caption("The Idea Master ")
 
     with row_5_2:
         image1 = Image.open(os.path.join((path),'jay.jpeg'))
@@ -189,14 +191,6 @@ def intro():
                 [Replenish Repository](https://github.com/mfaruki/replenish)*""")
     st.markdown("""*If you are interested in investing in the Replenish
                 goal feel free to contact the team!*""")
-
-
-
-
-
-
-
-
 
 
 
@@ -265,7 +259,7 @@ def output():
     ### SEARCH FUNC  ###
     ####################
 
-    carb=1000  ######------------------DELETE LATER!!!!
+    ######------------------DELETE LATER!!!!
 
     if center_button:
 
@@ -274,8 +268,25 @@ def output():
         #title, ingredients for 3 recipes of top stars for chosen category
 
         if cuisine_pref != 'Select' and diet_pref != 'Select':
-            initial_df= diet_star_sorted_df
-            initial_df = (initial_df[initial_df.preference ==cuisine_pref]).reset_index(drop=True)
+            # initial_df= diet_star_sorted_df
+            # initial_df = (initial_df[initial_df.preference ==cuisine_pref]).reset_index(drop=True)
+
+            try:
+                initial_df= diet_star_sorted_df
+                initial_df = (initial_df[initial_df.preference ==cuisine_pref]).reset_index(drop=True)
+                tester = initial_df.preference[0]
+
+                # #initial_df = (diet_star_sorted_df[diet_star_sorted_df.preference ==cuisine_pref]).reset_index(drop=True)
+                # ini= (processed_df[processed_df.combined.str.contains(diet_pref)])
+                # if ini[ini['preference'] ==cuisine_pref]:
+                #     initial_df = (ini[ini.preference ==cuisine_pref]).reset_index(drop=True)
+                # else:
+                #     initial_df= cuis_star_sorted_df
+
+
+            except:
+                initial_df = cuis_star_sorted_df
+                st.markdown(f"""<span style='color:red'>No {diet_pref} recipes found for this cuisine</span>""", unsafe_allow_html=True)
 
         if cuisine_pref == 'Select' and diet_pref == 'Select':
             initial_df = cuis_star_sorted_df
@@ -295,7 +306,7 @@ def output():
         with row8_1:
             recipe_1 = f'1. {str(initial_df.recipe_title[0])}'
             st.subheader(recipe_1)
-            st.text(f"Carbon Footprint:{carb}")
+            st.text(f"Difficulty: {initial_df.difficulty_level[0]}")
             for item in initial_df.ingredients[0].split(','):
                 if item != " ":
                     st.write(f"- {item}")
@@ -305,7 +316,7 @@ def output():
 
                 recipe_2 = f'2. {str(initial_df.recipe_title[1])}'
                 st.subheader(recipe_2)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {initial_df.difficulty_level[1]}")
                 for item in initial_df.ingredients[1].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -316,7 +327,7 @@ def output():
             try:
                 recipe_2 = f'3. {str(initial_df.recipe_title[2])}'
                 st.subheader(recipe_2)
-                st.text(f"Carbon Footprint:{carb}")
+                st.text(f"Difficulty: {initial_df.difficulty_level[2]}")
                 for item in initial_df.ingredients[2].split(','):
                     if item != " ":
                         st.write(f"- {item}")
@@ -354,8 +365,16 @@ def output():
 
         row10_spacer1,row10_1,row10_spacer2,row10_2,row10_spacer3,row10_3,row10_spacer4 = st.columns((.05, 1, .05, 1, .05, 1, .05))
         if cuisine_pref != 'Select' and diet_pref != 'Select':
-            similar_df= diet_star_sorted_df
-            similar_df = (similar_df[similar_df.preference ==cuisine_pref]).reset_index(drop=True)
+            try:
+                similar_df= diet_star_sorted_df
+                similar_df = (initial_df[initial_df.preference ==cuisine_pref]).reset_index(drop=True)
+                tester = initial_df.preference[0]
+            except:
+                similar_df = cuis_star_sorted_df
+                st.markdown(f"""<span style='color:red'>No {diet_pref} recipes found for this cuisine</span>""", unsafe_allow_html=True)
+
+            # similar_df= diet_star_sorted_df
+            # similar_df = (similar_df[similar_df.preference ==cuisine_pref]).reset_index(drop=True)
 
         if cuisine_pref == 'Select' and diet_pref == 'Select':
             similar_df = cuis_star_sorted_df
@@ -521,6 +540,7 @@ def output():
             diff_df= diet_star_sorted_df
             different_df = (diff_df[diff_df.dietary !=cuisine_pref]).reset_index(drop=True)
             fun_df = (diff_df[diff_df.preference ==cuisine_pref]).reset_index(drop=True)
+
 
         if cuisine_pref == 'Select' and diet_pref == 'Select':
             different_df = cuis_star_sorted_df
