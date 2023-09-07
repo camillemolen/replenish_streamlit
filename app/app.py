@@ -744,7 +744,8 @@ def graphing():
 
         cluster_df = processed_df[processed_df['cluster'] == select]
         cuisine_counts = cluster_df['preference'].value_counts()
-        fig_df = pd.DataFrame(cuisine_counts).reset_index(drop=True)
+        fig_df = pd.DataFrame(cuisine_counts).reset_index()
+        st.write(fig_df)
 
         fig= plt.figure(figsize=(20, 10), facecolor=(0,0,0,0))
         sns.barplot(x = fig_df['index'], y = fig_df['preference'])
