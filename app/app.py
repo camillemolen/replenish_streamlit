@@ -212,7 +212,7 @@ def output():
     recipes of which use most similar ingredients.
     Finally the user is returned a shopping list """
 
-    st.title('Find Waste-Minimizing Recipes with Replenish!')
+    st.title('Find *Waste-Minimizing* Recipes with Replenish!')
 
     row6_spacer1, row6_1, row6_spacer2 = st.columns((.2, 7.1, .2))
     with row6_1:
@@ -260,7 +260,7 @@ def output():
     with col5:
         pass
     with col3 :
-        center_button = st.button('Generate Top Picks🍋')
+        center_button = st.button('Generate Top Picks 🍋')
 
     ####################
     ###  1ST RECIPES ###
@@ -356,7 +356,7 @@ def output():
     with col2_5:
         pass
     with col2_3 :
-        recipe_pick = st.selectbox('Pick a Recipe \n 1️⃣, 2️⃣ or 3️⃣ ?', [1,2,3])
+        recipe_pick = st.selectbox('➰ Pick a Recipe ➰ 1️⃣, 2️⃣ or 3️⃣ ?', [1,2,3])
 
 
     st.write("--------------")
